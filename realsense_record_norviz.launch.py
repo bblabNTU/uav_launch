@@ -33,6 +33,5 @@ def generate_launch_description():
 
     return LaunchDescription([
         realsense_node,
-        record_node,
-        rviz_node
+        record_node
     ])
