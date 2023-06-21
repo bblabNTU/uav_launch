@@ -1,0 +1,12 @@
+mavros_node:
+  ros__parameters:
+    fcu_url: "udp://:14540@127.0.0.1:14557"
+    gcs_url: ""
+    tgt_system: 1
+    fcu_protocol: "v2.0"
+    tgt_component: 1
+    heartbeat_rate: 1.0
+    publish_sim_time: false
+    /mavros/local_position/tf/send: true
+    /mavros/local_position/frame_id: "odom"
+    /mavros/local_position/tf/frame_id: "odom"
