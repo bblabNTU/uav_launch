@@ -1,6 +1,6 @@
 mavros_node:
   ros__parameters:
-    fcu_url: "/dev/ttyUAB0:921600"
+    fcu_url: "/dev/ttyUSB0:921600"
     gcs_url: ""
     tgt_system: 1
     fcu_protocol: "v2.0"
