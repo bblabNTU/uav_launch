@@ -1,0 +1,82 @@
+# EuRoC monocular model
+
+Camera:
+  name: "gazebo480"
+  setup: "monocular"
+  model: "perspective"
+  
+ 
+#  camera matrix                                                                                                                                                                                                                          
+# 553.748884 0.000000 319.076342                                                                                                                                                                                                         
+# 0.000000 553.793935 239.174505                                                                                                                                                                                                         
+# 0.000000 0.000000 1.000000                                                                                                                                                                                                             
+                                                                                                                                                                                                                                       
+# distortion                                                                                                                                                                                                                             
+# -0.002563 0.003884 -0.000259 -0.000214 0.000000                                                                                                                                                                                        
+                                                                                                                                                                                                                                       
+# rectification                                                                                                                                                                                                                          
+# 1.000000 0.000000 0.000000                                                                                                                                                                                                             
+# 0.000000 1.000000 0.000000                                                                                                                                                                                                             
+# 0.000000 0.000000 1.000000                                                                                                                                                                                                               
+# projection                                                                                                                                                                                                                             
+# 552.850281 0.000000 318.438156 0.000000                                                                                                                                                                                                
+# 0.000000 552.618896 238.548593 0.000000                                                                                                                                                                                                
+# 0.000000 0.000000 1.000000 0.000000                                                                                                                                                                                                    
+                                      
+  fx: 553.748884 
+  fy: 553.793935
+  cx: 319.076342 
+  cy: 239.174505
+
+  k1: 0.000000
+  k2: 0.000000
+  p1: 0.000000 
+  p2: 0.000000
+  k3: 0.000000
+  fps: 30.0
+  cols: 640
+  rows: 480
+  color_order: "RGB"
+
+
+Preprocessing:
+  min_size: 800
+
+Feature:
+  name: "default ORB feature extraction setting"
+  scale_factor: 1.2
+  num_levels: 8
+  ini_fast_threshold: 20
+  min_fast_threshold: 7
+
+Mapping:
+  backend: "g2o"
+  baseline_dist_thr_ratio: 0.02
+  redundant_obs_ratio_thr: 0.9
+  num_covisibilities_for_landmark_generation: 20
+  num_covisibilities_for_landmark_fusion: 20
+
+Tracking:
+  backend: "g2o"
+
+LoopDetector:
+  backend: "g2o"
+  enabled: true
+  reject_by_graph_distance: true
+  min_distance_on_graph: 50
+
+
+System:
+  map_format: "msgpack"
+
+PangolinViewer:
+  keyframe_size: 0.07
+  keyframe_line_width: 1
+  graph_line_width: 1
+  point_size: 2
+  camera_size: 0.08
+  camera_line_width: 3
+  viewpoint_x: 0
+  viewpoint_y: -0.65
+  viewpoint_z: -1.9
+  viewpoint_f: 400

@@ -1,0 +1,123 @@
+# EuRoC monocular model
+
+Camera:
+  name: "runcam640"
+  setup: "monocular"
+  model: "perspective"
+  
+  #c310
+  #fx: 1523.12382
+  #fy: 1466.29103
+  #cx: 1002.87873
+  #cy: 530.10411
+
+  #k1: -0.587138
+  #k2: 0.248748
+  #p1: -0.002170
+  #p2: -0.008611
+  #k3: 0.000000
+  
+## runcam 1920 1080
+#camera_matrix:
+#  rows: 3
+#  cols: 3
+#  data: [1523.12382,    0.     , 1002.87873,
+#            0.     , 1466.29103,  530.10411,
+#            0.     ,    0.     ,    1.     ]
+#distortion_model: plumb_bob
+#distortion_coefficients:
+#  rows: 1
+#  cols: 5
+#  data: [-0.587138, 0.248748, -0.002170, -0.008611, 0.000000
+
+  # ---runcam 640 480---
+  # fx: 331.867705
+  # fy: 716.606937
+  # cx: 288.803289
+  # cy: 206.501952
+
+  # k1: -0.276736
+  # k2: 0.051486
+  # p1: 0.001675
+  # p2: 1.76187114e-05
+  # k3: 0.000000
+  # fps: 30.0
+  # cols: 1280
+  # rows: 720
+  # color_order: "BGRA"
+
+  # ---runcam 1280 720 ---
+  # camera matrix
+  # 713.394872 0.000000 627.162907
+  # 0.000000 716.606937 320.816944
+  # 0.000000 0.000000 1.000000
+
+  # distortion
+  # -0.317813 0.068975 0.001900 0.000117 0.000000
+
+  # rectification
+  # 1.000000 0.000000 0.000000
+  # 0.000000 1.000000 0.000000
+  # 0.000000 0.000000 1.000000
+
+  # projection
+  # 464.330353 0.000000 625.814992 0.000000
+  # 0.000000 648.127808 313.098624 0.000000
+  # 0.000000 0.000000 1.000000 0.000000
+  fx: 713.394872
+  fy: 716.606937
+  cx: 627.162907
+  cy: 320.816944
+
+  k1: -0.317813
+  k2: 0.068975
+  p1: 0.001900
+  p2: 0.000117
+  k3: 0.000000
+  fps: 30.0
+  cols: 1280
+  rows: 720
+  color_order: "BGRA"
+
+
+Preprocessing:
+  min_size: 800
+
+Feature:
+  name: "default ORB feature extraction setting"
+  scale_factor: 1.2
+  num_levels: 8
+  ini_fast_threshold: 20
+  min_fast_threshold: 7
+
+Mapping:
+  backend: "g2o"
+  baseline_dist_thr_ratio: 0.02
+  redundant_obs_ratio_thr: 0.9
+  num_covisibilities_for_landmark_generation: 20
+  num_covisibilities_for_landmark_fusion: 20
+
+Tracking:
+  backend: "g2o"
+
+LoopDetector:
+  backend: "g2o"
+  enabled: true
+  reject_by_graph_distance: true
+  min_distance_on_graph: 50
+
+
+System:
+  map_format: "msgpack"
+
+PangolinViewer:
+  keyframe_size: 0.07
+  keyframe_line_width: 1
+  graph_line_width: 1
+  point_size: 2
+  camera_size: 0.08
+  camera_line_width: 3
+  viewpoint_x: 0
+  viewpoint_y: -0.65
+  viewpoint_z: -1.9
+  viewpoint_f: 400
