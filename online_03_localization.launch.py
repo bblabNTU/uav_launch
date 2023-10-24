@@ -13,6 +13,27 @@ def generate_launch_description():
         'map_db_in',
         default_value= default_mapdb_in_arg,
         description='Path to map, map_db_in:=../data/map/...'
+    ) 
+    # cam2image command
+    cam2image_node = Node(
+        package='image_tools',
+        executable='cam2image',
+        name='cam2image_node',
+        parameters=[{
+            'device_id': 2,
+            'width': 1280,
+            'height': 720,
+            'frequency': 30.0
+        }],
+        arguments=['--ros-args', '--log-level', 'warn']
+    )
+    # republish command
+    republish_node = Node(
+        package='image_transport',
+        executable='republish',
+        name='republish_node',
+        arguments=['raw', 'in:=image', 'raw', 'out:=/camera/image_raw'],
+        output='screen'
     )
 
     # TF                                                                  
@@ -61,6 +82,8 @@ def generate_launch_description():
     return LaunchDescription([
         map_db_in_arg,
         # tf2_ros,
+        cam2image_node,
+        republish_node,
         odom_to_base_link,
         base_link_to_camera_link,
         stella_ros
