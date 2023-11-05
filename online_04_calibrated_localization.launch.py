@@ -68,7 +68,10 @@ def generate_launch_description():
         name='stella_ros',
         output="screen",
         #remappings=[("/stella_ros/camera_pose","/mavros/odometry/out")],
-        arguments=["-v","./orb_vocab.fbow","-c","./runcam_720p.yaml","--map-db-in",LaunchConfiguration('db_in')],
+        arguments=["--disable-mapping",
+                   "-v","./orb_vocab.fbow",
+                   "-c","./runcam_720p.yaml",
+                   "--map-db-in",LaunchConfiguration('db_in')],
         parameters=[
             {"odom_frame": "odom"},
             {"map_frame": "map"},
@@ -76,7 +79,7 @@ def generate_launch_description():
             {"camera_frame": "camera_frame"},
             #{"publish_tf": True},
             {"publish_keyframes": True},
-            {"transform_tolerance": 0.5},
+            {"transform_tolerance": 0.5}
         ]
     )
     # Node for Calibrated pose
