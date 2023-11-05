@@ -79,7 +79,7 @@ def generate_launch_description():
             {"camera_frame": "camera_frame"},
             #{"publish_tf": True},
             {"publish_keyframes": True},
-            {"transform_tolerance": 0.5},
+            {"transform_tolerance": 0.5}
         ]
     )
     # Node for Calibrated pose
