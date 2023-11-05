@@ -25,7 +25,7 @@ def generate_launch_description():
             'height': 720,
             'frequency': 30.0
         }],
-        output='screen'
+        arguments=['--ros-args', '--log-level', 'warn']
     )
 
     # republish command
@@ -86,7 +86,8 @@ def generate_launch_description():
         name='calibrated_pose',
         parameters=[
             {"yaml_path": "../data/align_param.yaml"}
-        ]
+        ],
+        arguments=['--ros-args', '--log-level', 'warn']
     )
 
     return LaunchDescription([
