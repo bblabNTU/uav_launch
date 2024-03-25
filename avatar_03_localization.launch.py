@@ -75,7 +75,7 @@ def generate_launch_description():
         #remappings=[("/stella_ros/camera_pose","/mavros/odometry/out")],
         arguments=["--disable-mapping",
                    "-v","./orb_vocab.fbow",
-                   "-c","./runcam_720p.yaml",
+                   "-c","./avatar_720p.yaml",
                    "--map-db-in",LaunchConfiguration('db_in')]
                    # "--ros-args","-r","/camera/image_raw:=/cam0/image_raw"]
         # parameters=[

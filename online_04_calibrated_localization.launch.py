@@ -48,7 +48,7 @@ def generate_launch_description():
     odom_to_base_link = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        arguments=['--x', '0', '--y', '0', '--z', '1', '--yaw', '0', '--pitch', '0', '--roll', '0',
+        arguments=['--x', '0', '--y', '0', '--z', '0', '--yaw', '0', '--pitch', '0', '--roll', '0',
                    '--frame-id','odom','--child-frame-id','base_link'],
         name='odom_to_base_link'
     )
@@ -75,7 +75,7 @@ def generate_launch_description():
         parameters=[
             {"odom_frame": "odom"},
             {"map_frame": "map"},
-            {"base_link": "base_footprint"},
+            {"base_link": "base_link"},
             {"camera_frame": "camera_frame"},
             #{"publish_tf": True},
             {"publish_keyframes": True},

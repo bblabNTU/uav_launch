@@ -13,8 +13,8 @@ def generate_launch_description():
         'map_db_in',
         default_value= default_mapdb_in_arg,
         description='Path to map, map_db_in:=../data/map/...'
-    ) 
-    # cam2image command
+    )
+     # cam2image command
     cam2image_node = Node(
         package='image_tools',
         executable='cam2image',
@@ -23,11 +23,14 @@ def generate_launch_description():
             'device_id': 2,
             'width': 1280,
             'height': 720,
-            'frequency': 30.0
+            'frequency': 10.0,
+            'depht': 1
         }],
+        #remappings=[("/image_raw", "/camera/image_raw")],
         arguments=['--ros-args', '--log-level', 'warn']
     )
-    # republish command
+
+    # # republish command (not use becauese i use remapping in cam2image, i use raw image)
     republish_node = Node(
         package='image_transport',
         executable='republish',
@@ -40,7 +43,7 @@ def generate_launch_description():
     tf2_ros = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom'],
+        arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom_ned'],
         name='odom_to_odom'
     )
 
@@ -59,12 +62,6 @@ def generate_launch_description():
                      '--frame-id','base_link','--child-frame-id','camera_frame'],
         name='base_link_to_camera_link'
     )
-    # cc_to_camera_frame= Node(
-    #     package='tf2_ros',
-    #     executable='static_transform_publisher',
-    #     arguments=['0', '0', '0', '0', '0', '0', 'cc', 'camera_frame'],
-    #     name='cc_to_camera_frame'
-    # )
 
     # Node for Stella SLAM ROS
     stella_ros = Node(
@@ -75,27 +72,35 @@ def generate_launch_description():
         #remappings=[("/stella_ros/camera_pose","/mavros/odometry/out")],
         arguments=["--disable-mapping",
                    "-v","./orb_vocab.fbow",
-                   "-c","./runcam_720p.yaml",
-                   "--map-db-in",LaunchConfiguration('db_in')]
-                   # "--ros-args","-r","/camera/image_raw:=/cam0/image_raw"]
-        # parameters=[
-        #     {"odom_frame": "odom"},
-        #     {"map_frame": "map"},
-        #     {"base_link": "base_link"},
-        #     {"camera_frame": "camera_frame"},
-        #     {"publish_tf": True},
-        #     {"publish_keyframes": True},
-        #     {"transform_tolerance": 0.5}
-        # ]
+                   "-c","./avatar_720p.yaml",
+                   "--map-db-in",LaunchConfiguration('db_in')],
+        parameters=[
+            {"odom_frame": "odom"},
+            {"map_frame": "map"},
+            {"base_link": "base_link"},
+            {"camera_frame": "camera_frame"},
+            #{"publish_tf": True},
+            {"publish_keyframes": True},
+            {"transform_tolerance": 0.5}
+        ]
+    )
+    # Node for Calibrated pose
+    calibrated_fusion_pose = Node(
+        package='align_vslam',
+        executable='calibrated_fusion_pose',
+        name='calibrated_fusion_pose',
+        parameters=[
+            {"yaml_path": "../data/align_param.yaml"}
+        ],
+        arguments=['--ros-args', '--log-level', 'warn']
     )
 
     return LaunchDescription([
-        map_db_in_arg,
-        #tf2_ros,
         cam2image_node,
         republish_node,
+        map_db_in_arg,
         odom_to_base_link,
         base_link_to_camera_link,
-        # cc_to_camera_frame,
-        stella_ros
+        stella_ros,
+        calibrated_fusion_pose
     ])
