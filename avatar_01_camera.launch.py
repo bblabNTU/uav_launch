@@ -39,7 +39,7 @@ def generate_launch_description():
             'device_id': 2,
             'width': 1280,
             'height': 720,
-            'frequency': 15.0
+            'frequency': 10.0
         }],
         output='screen'
     )
